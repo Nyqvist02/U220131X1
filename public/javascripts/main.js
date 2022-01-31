@@ -1,6 +1,6 @@
 'use-strict';
 
-fetch('/data').then(res => res.json()).then(data => generateHtml(data));
+fetch('./data/data.json').then(res => res.json()).then(data => generateHtml(data));
 
 const container = document.getElementById('container');
 
