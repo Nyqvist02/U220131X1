@@ -1,8 +1,8 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-
 const scraperObject = {
+    
     url: 'https://arbetsformedlingen.se/platsbanken/annonser?q=devops&l=2:CifL_Rzy_Mku',
     async scraper(browser){
         let page = await browser.newPage();
@@ -27,7 +27,7 @@ const scraperObject = {
                 dataObj['jobTitle'] = await newPage.$eval('h1.spacing.break-title', text => text.textContent);
                 dataObj['companyName'] = await newPage.$eval('#pb-company-name', text => text.textContent);
                 dataObj['companyLocation'] = await newPage.$eval('#pb-job-location', text => text.textContent);
-                dataObj['jobDescription'] = await newPage.$eval('.section.job-description', text => text.textContent.substring(0, 200));
+                dataObj['jobDescription'] = await newPage.$eval('.section.job-description', text => text.innerHtml);
                 dataObj['url'] = link;
 
                 resolve(dataObj);
@@ -83,6 +83,40 @@ const scraperObject = {
         // console.log(data);
         return data;
     }
+
 }
+
+//BROWSER
+async function startBrowser(){              //start Browser and leaves a message in console
+    let browser;
+    try {
+        console.log("Opening the browser......");
+        browser = await puppeteer.launch({
+            headless: true,
+            args: ["--disable-setuid-sandbox"],
+            'ignoreHTTPSErrors': true
+        });
+    } catch (err) {                         //error message
+        console.log("Could not create a browser instance => : ", err);
+    }
+    return browser;
+}
+
+//PAGECONTROLLER
+async function scrapeAll(browserInstance){
+    let browser;
+    try{
+        browser = await browserInstance;
+        await scraperObject.scraper(browser);
+
+    }
+    catch(err){
+        console.log("Could not resolve the browser instance => ", err);
+    }
+}
+
+let browserInstance = startBrowser();
+
+scrapeAll(browserInstance);
 
 module.exports = scraperObject;

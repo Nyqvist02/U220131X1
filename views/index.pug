@@ -4,5 +4,11 @@ block content
   .row.justify-content-center
     img(src = '/images/SSD_LOGO.png').col-1
     h1(id = 'titel').text-center
-  p.text-center Hämtat från Arbtesförmedlingen.se
-  div(id = 'container').container-fluid
+  #buttonRow.row.justify-content-center
+    .col-12
+      p.text-center Hämtat från Arbetsförmdlingen
+    //- #button.col-auto.pb-2
+    //-   button(id = 'reload' type = 'button').btn.btn-danger Uppdatera
+    //-   div(id = 'spinner' role = 'status').spinner-border.text-danger.align-middle.mx-2.d-none
+  
+  #container.container-fluid
