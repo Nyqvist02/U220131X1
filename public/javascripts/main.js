@@ -6,7 +6,7 @@ const container = document.getElementById('container');
 
 const titel = document.getElementById('titel');
 
-const generateHtml = (jobs) => {
+const generateHtml = (jobs) => {                            //Makes the layout and html tags for the site
     jobs.forEach(job => {
         const row = document.createElement('div');
         row.className = 'row justify-content-evenly';
