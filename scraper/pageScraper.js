@@ -10,7 +10,7 @@ const scraperObject = {
         await page.goto(this.url);
         let scrapedData = [];
         let ctr = 0;
-
+        //using links to go into them and collect data from the pages
         async function scrapeCurrentPage(){
             await page.waitForSelector('.result-container');
             let urls = await page.$$eval('.header-container > h3 > a', links => {
@@ -23,6 +23,7 @@ const scraperObject = {
 
                 await newPage.waitForSelector('h1.spacing.break-title');
 
+                //Adding text from the page to our tags. 
                 dataObj['jobTitle'] = await newPage.$eval('h1.spacing.break-title', text => text.textContent);
                 dataObj['companyName'] = await newPage.$eval('#pb-company-name', text => text.textContent);
                 dataObj['companyLocation'] = await newPage.$eval('#pb-job-location', text => text.textContent);

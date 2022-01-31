@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 
-async function startBrowser(){
+async function startBrowser(){              //start Browser and leaves a message in console
     let browser;
     try {
         console.log("Opening the browser......");
@@ -9,7 +9,7 @@ async function startBrowser(){
             args: ["--disable-setuid-sandbox"],
             'ignoreHTTPSErrors': true
         });
-    } catch (err) {
+    } catch (err) {                         //error message
         console.log("Could not create a browser instance => : ", err);
     }
     return browser;
